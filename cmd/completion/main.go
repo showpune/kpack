@@ -15,6 +15,7 @@ import (
 	"github.com/google/go-containerregistry/pkg/authn"
 	"github.com/google/go-containerregistry/pkg/authn/k8schain"
 	"github.com/pkg/errors"
+	"github.com/sigstore/cosign/cmd/cosign/cli/options"
 	"github.com/sigstore/cosign/cmd/cosign/cli/sign"
 
 	buildapi "github.com/pivotal/kpack/pkg/apis/build/v1alpha2"
@@ -166,7 +167,7 @@ func signImage(report platform.ExportReport, keychain authn.Keychain) error {
 		}
 
 		if err := cosignSigner.Sign(
-			context.Background(),
+			&options.RootOptions{},
 			report,
 			cosignSecretLocation,
 			annotations,
